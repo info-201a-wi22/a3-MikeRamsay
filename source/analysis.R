@@ -95,16 +95,17 @@ View(var_comparison_data)
 #Map: 
 #What state had the highest (portion) amount of its residents in jails in 2000?
 
-new_incarceration <- incarceration_dataset %>%
-  state.abb[match(state, state.name)]
-View(new_incarceration)
+x <- c(state_shape$state)
+new_incarceration <- state_shape %>%
+  state.abb[match(x, state.name)]
+  View(new_incarceration)
 
 highest_jail_pop <- clean_incarceration_dataset %>%
   filter(year == 2000) %>%
   mutate(state = tolower(state))
   
 state_shape <- map_data("state") %>%
-  rename(state = region) %>%
+  rename(state = region) #%>%
   left_join(incarceration_dataset, by="state")
 
 ggplot(state_shape) +

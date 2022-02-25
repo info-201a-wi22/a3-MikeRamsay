@@ -6,26 +6,47 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+source("/Users/mikeramsay/Documents/Info201code/a3-MikeRamsay/source/analysis.R")
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+library("knitr")
 ```
 
 
-## Including Plots
+##Introduction
+For this assignment, I am looking at incarceration statistics in the US during the past couple decades. I used a dataset from the Vera institute that contains lots of statistics on total populations, by state and county and their breakdowns by race and sex. It also contains information about the people incarcerated, like their race, whether they are a juvenile and why they are in jail. Some of the specific values that I explored are the states that have the largest proportions of their populations in jails as well as the total jail population changes over the past couple decades and what the jail population looks like when broken down by race.
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+##Summary Information
+```{r summaryInfo, echo = FALSE}
+source("source/analysis.R")
+# Summary Information
+average_jail_pop <- av_jail_pop
+largest_jail_pop <- state_largest_jail_pop
+largest_juvenile <- state_largest_juvenile_pop
+jail_pop_change_1980_to_2000 <- jail_pop_1980_to_2000
+proportion_of_blacks_jail <- prop_blacks
 ```
+
+The summary information that I collected, includes some values that I think are interesting or important to this dataset. I found that the average of all jail populations across the US during 2018 was **`r round(average_jail_pop)`**. The state with the largest jail population, _proportional_ to its population is **`r largest_jail_pop`** and the state with the largest juvenile jail population _proportional_ to its population is **`r largest_juvenile`**. Also the change in jail population across the United States, from 1980 to 2000 is an increase of **`r jail_pop_change_1980_to_2000`** prisoners. The proportion of black people in jails around the United States, from the year 2000 to 2013, is **`r proportion_of_blacks_jail`**.
+
+
+##Charts
+
+#Trends Over Time Chart
+```{r time_plot, echo=FALSE}
+plot(time_plot)
+```
+
+
+#Variable Comparison Chart
+```{r var_comparison_plot, echo=FALSE}
+plot(var_comparison_plot)
+```
+
+
+#Map
+```{r , echo=FALSE}
+plot()
+```
+
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
