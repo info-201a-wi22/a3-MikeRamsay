@@ -13,7 +13,7 @@ library("knitr")
 
 
 ## Introduction
-For this assignment, I am looking at incarceration statistics in the US during the past couple decades. I used a dataset from the Vera institute that contains lots of statistics on total populations, by state and county and their breakdowns by race and sex. It also contains information about the people incarcerated, like their race, whether they are a juvenile and why they are in jail. Some of the specific values that I explored are the states that have the largest proportions of their populations in jails as well as the total jail population changes over the past couple decades and what the jail population looks like when broken down by race.
+For this assignment, I am looking at incarceration statistics in the US during the past couple decades. I used a dataset from the Vera institute that contains lots of statistics on total populations, by state and county and their breakdowns by race and sex. It also contains information about the people incarcerated, like their race, whether they are a juvenile and why they are in jail. Some of the specific values that I explored are the states that have the largest proportions of their populations in jails as well as the total jail population changes over the past couple decades and what the jail population looks like when broken down by race. I chose these values because I know there are lots of issues and inequalities in our country surrounding race and incarceration, especially relating to the War on Drugs. I wanted to visualize this and show some supporting evidence for these issues.
 
 ## Summary Information
 
@@ -53,5 +53,5 @@ This is a chart comparing the Latinx population and the total population of peop
 plot(us_plot)
 ```
 
-This is a map of the United States, displaying the jail populations by state.  
+This is a map of the United States, displaying the jail populations by state. It shows which states have the highest jail populations or the largest amount of its residents in jails. The darker states have larger jail populations, while the lighter ones have smaller populations.
 

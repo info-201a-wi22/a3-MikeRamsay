@@ -106,6 +106,7 @@ state_shape <- map_data("state") %>%
   rename(state = region) %>%
   left_join(highest_jail_pop, by="state")
 
+#Code for map
 us_plot <- ggplot(state_shape) +
   geom_polygon(
     mapping = aes(x = long, y = lat, group = group, fill = total_jail_pop),
@@ -125,7 +126,8 @@ us_plot <- ggplot(state_shape) +
     panel.grid.major = element_blank(), 
     panel.grid.minor = element_blank(), 
     panel.border = element_blank()    
-  ) 
+  ) +
+  labs(x="", y="", title="Jail Population by State")
 
 #END
   
