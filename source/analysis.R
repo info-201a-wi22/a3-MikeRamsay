@@ -55,6 +55,7 @@ prop_blacks <- clean_incarceration_dataset %>%
 var_comparison_data <- clean_incarceration_dataset %>%
   filter(latinx_pop_15to64 <= 1000000)
 
+#Code for line chart
 var_comparison_plot <- ggplot(data = var_comparison_data) +
   geom_point(mapping = aes(x = latinx_pop_15to64, y = total_jail_from_ice)) +
   geom_smooth(mapping = aes(x = latinx_pop_15to64, y = total_jail_from_ice)) +
@@ -70,19 +71,31 @@ var_comparison_plot <- ggplot(data = var_comparison_data) +
 time_plot_data <- clean_incarceration_dataset %>%
   filter(state == "CA") %>%
   group_by(year) %>%
-  summarise(combo_total_jail_pop = sum(total_jail_pop)) 
+  mutate(combo_aapi_jail_pop = sum(aapi_jail_pop)) %>%
+  mutate(combo_black_jail_pop = sum(black_jail_pop)) %>%
+  mutate(combo_latinx_jail_pop = sum(latinx_jail_pop)) %>%
+  mutate(combo_native_jail_pop = sum(native_jail_pop)) %>%
+  mutate(combo_white_jail_pop = sum(white_jail_pop)) %>%
+  mutate(combo_other_jail_pop = sum(other_race_jail_pop))
 
+#Code for dot plot
 time_plot <- ggplot(data = time_plot_data) +
-  geom_line(mapping = aes(x = year, y = combo_total_jail_pop)) +
+  geom_line(mapping = aes(x = year, y = combo_latinx_jail_pop, color = "Latinx")) +
+  geom_line(mapping = aes(x = year, y = combo_white_jail_pop, color = "White")) +
+  geom_line(mapping = aes(x = year, y = combo_black_jail_pop, color = "Black")) +
+  geom_line(mapping = aes(x = year, y = combo_aapi_jail_pop, color = "AAPI")) +
+  geom_line(mapping = aes(x = year, y = combo_other_jail_pop, color = "Other")) +
+  geom_line(mapping = aes(x = year, y = combo_native_jail_pop, color = "Native")) +
+  scale_color_manual(name = "Race", values = c("Latinx" = "red", "Black" = "darkblue", "AAPI" = "lightblue", "Native" = "darkgreen", "White" = "lightpink", "Other" = "orange")) +
   labs(
-    title = "Total jail population in California from 2000 to 2013",
+    title = "Jail population in California, by race, from 2000 to 2013",
     x = "Year (2000-2013)",
     y = "Total Jail Population"
   )
 
 #-------------------------------------------------------------------------------
 #Map: 
-#What state had the highest (portion) amount of its residents in jails in 2000?
+#What state had the highest amount of its residents in jails in 2000?
 
 highest_jail_pop <- clean_incarceration_dataset %>%
   filter(year == 2000) %>%
@@ -99,20 +112,20 @@ us_plot <- ggplot(state_shape) +
     color = "white",
     size = .1
   ) + 
-  coord_map()+
+  coord_map() +
   scale_fill_continuous(low = "#132B43", high = "Red") +
   labs(fill = "Jail Populations")  +
-  theme_bw()
+  theme_bw() +
+  theme(
+    axis.line = element_blank(),        
+    axis.text = element_blank(),       
+    axis.ticks = element_blank(),      
+    axis.title = element_blank(),      
+    plot.background = element_blank(),  
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(), 
+    panel.border = element_blank()    
+  ) 
 
-#Real
-library(ggplot2)
-all_states <- map_data("state")
-
-jail_pop_Plot <- ggplot()+geom_polygon(
-  data=state_shape, 
-  aes(x= long, y= lat, group = group, fill=total_jail_pop),
-  color="grey50")+coord_map()
-
-
-
-
+#END
+  

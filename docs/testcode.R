@@ -119,7 +119,17 @@ ggplot(state_shape) +
   coord_map()+
   scale_fill_continuous(low = "#132B43", high = "Red") +
   labs(fill = "Jail Populations")  +
-  theme_bw()
+  theme_bw() +
+  theme(
+    axis.line = element_blank(),        
+    axis.text = element_blank(),       
+    axis.ticks = element_blank(),      
+    axis.title = element_blank(),      
+    plot.background = element_blank(),  
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(), 
+    panel.border = element_blank()    
+  )
 
 View(state_shape)
 

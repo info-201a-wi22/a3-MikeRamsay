@@ -37,7 +37,7 @@ The summary information that I collected, includes some values that I think are 
 plot(time_plot)
 ```
 
-For this chart, I decided on measuring the total jail population in California from 2000 to 2013. I decided to include this chart because I was interested in what the most populus state's jail population looked like. I also think that this chart shows some interesting trends, like how the total population saw a spike around 2008 with just over 50,000 people in jail.
+For this chart, I decided on measuring jail population in California from 2000 to 2013, broken down by race. I decided to include this chart because I was interested to see what the jail breakdown looks like in the most populus and one of the most diverse states. I also think that this chart shows some interesting trends, like how most listed races saw a spike around 2008. A notable take-away from this would be that this is roughly around the time of the 2008 recession, which could have played a factor in this peak of US jail population. Also, the Latinx population is clearly the largest in California jails, but this also is a state with one of the largest Latinx populations. 
 
 ### Variable Comparison Chart
 
@@ -53,5 +53,5 @@ This is a chart comparing the Latinx population and the total population of peop
 plot(us_plot)
 ```
 
-This is a map of the United States. 
+This is a map of the United States, displaying the jail populations by state.  
 
