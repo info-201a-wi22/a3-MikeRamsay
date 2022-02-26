@@ -5,7 +5,13 @@ library("readr")
 library("leaflet")
 library("knitr")
 
-incarceration_dataset <- read.csv("https://raw.githubusercontent.com/vera-institute/incarceration-trends/ae6a18945c23b56aa8d4b00ff83090d83a171fac/incarceration_trends.csv", stringsAsFactors = FALSE)
+#Loading dataset into R:
+urlfile="https://raw.githubusercontent.com/vera-institute/incarceration-trends/ae6a18945c23b56aa8d4b00ff83090d83a171fac/incarceration_trends.csv"
+
+incarceration_dataset <- read_csv(url(urlfile))
+spec(incarceration_dataset)
+View(incarceration_dataset)
+dim(incarceration_dataset)
 clean_incarceration_dataset <- na.omit(incarceration_dataset)
 
 #-------------------------------------------------------------------------------
@@ -64,6 +70,10 @@ var_comparison_plot <- ggplot(data = var_comparison_data) +
     y = "Population in Jail from ICE"
   ) 
 
+ggplotly(var_comparison_plot)
+
+View(var_comparison_data)
+
 #-------------------------------------------------------------------------------
 #Trends Over Time Chart:
 #Total jail population in CA from 2000 to 2013
@@ -79,6 +89,9 @@ time_plot <- ggplot(data = time_plot_data) +
     x = "Year (2000-2013)",
     y = "Total Jail Population"
   )
+ggplotly(time_plot)
+
+View(time_plot_data)
 
 #-------------------------------------------------------------------------------
 #Map: 
@@ -89,11 +102,15 @@ highest_jail_pop <- clean_incarceration_dataset %>%
   select(state, total_jail_pop) %>%
   mutate(state = tolower(state))
 
+View(highest_jail_pop)
+
 state_shape <- map_data("state") %>%
   rename(state = region) %>%
   left_join(highest_jail_pop, by="state")
 
-us_plot <- ggplot(state_shape) +
+View(state_shape)
+
+ggplot(state_shape) +
   geom_polygon(
     mapping = aes(x = long, y = lat, group = group, fill = total_jail_pop),
     color = "white",
@@ -104,15 +121,18 @@ us_plot <- ggplot(state_shape) +
   labs(fill = "Jail Populations")  +
   theme_bw()
 
+View(state_shape)
+
+
 #Real
 library(ggplot2)
 all_states <- map_data("state")
+View(all_states)
 
 jail_pop_Plot <- ggplot()+geom_polygon(
   data=state_shape, 
   aes(x= long, y= lat, group = group, fill=total_jail_pop),
   color="grey50")+coord_map()
-
-
+jail_pop_Plot
 
 
