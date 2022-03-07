@@ -53,5 +53,5 @@ This is a chart comparing the Latinx population and the total population of peop
 plot(us_plot)
 ```
 
-This is a map of the United States, displaying the jail populations by state. It shows which states have the highest jail populations or the largest amount of its residents in jails. The darker states have larger jail populations, while the lighter ones have smaller populations.
+This is a map of the United States, displaying the jail populations, proportional to the state population in 2018. It shows which states have the highest jail populations or the largest proportion of its residents in jails. The states that are brighter shade of red have larger jail populations, while the states with darker shades have smaller jail populations. The map shows that states in the southern portion of the United States, like Louisiana, Kentucky and Georgia have a higher proportion of their populations in jails. Louisiana appears to have the highest concentration, with around 0.6% of its population in jails. 
 
