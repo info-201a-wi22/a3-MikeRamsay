@@ -20,7 +20,7 @@ av_jail_pop <- incarceration_dataset %>%
 #Value #2: Which state has the largest jail population, proportional to its population?
 state_largest_jail_pop <- clean_incarceration_dataset %>%
   group_by(state) %>%
-  summarize(prop_jail_pop = sum(total_jail_pop, na.rm = TRUE)/sum(total_pop, na.rm = TRUE)) %>%
+  summarize(prop_jail_pop = (sum(total_jail_pop, na.rm = TRUE)/sum(total_pop, na.rm = TRUE))*100) %>%
   filter(prop_jail_pop == max(prop_jail_pop)) %>%
   pull(state)
 
@@ -95,21 +95,40 @@ time_plot <- ggplot(data = time_plot_data) +
 
 #-------------------------------------------------------------------------------
 #Map: 
-#What state had the highest amount of its residents in jails in 2000?
+#What state had the highest amount of its residents in jails in 2018?
 
-highest_jail_pop <- clean_incarceration_dataset %>%
-  filter(year == 2000) %>%
-  select(state, total_jail_pop) %>%
-  mutate(state = tolower(state))
+#Use state codes to help merge
+state_codes <- read.csv('./Data/statecodes.csv', stringsAsFactors = FALSE)
+
+state_codes_fix <- state_codes %>%
+  rename(state = Code)
+
+highest_jail_pop <- incarceration_dataset %>%
+  filter(year == 2018) %>%
+  group_by(state) %>%
+  summarize(prop_jail_pop = (sum(total_jail_pop, na.rm = TRUE)/sum(total_pop, na.rm = TRUE))*100) %>%
+  select(state, prop_jail_pop) #%>%
+  #group_by(state) %>%
+  #summarise(total_jail_pop = sum(prop_jail_pop, na.rm = T)) 
+
+first_merge <- highest_jail_pop %>%
+  left_join(state_codes_fix, by="state") %>%
+  mutate(State = tolower(State)) %>%
+  rename(Abb = state) %>%
+  rename(state = State) 
 
 state_shape <- map_data("state") %>%
   rename(state = region) %>%
-  left_join(highest_jail_pop, by="state")
+  group_by(state) %>%
+  left_join(first_merge, by="state") %>%
+  group_by(state)
+  #summarise(sum_total_jail_pop = log(sum(total_jail_pop, na.rm = T))) 
+
 
 #Code for map
 us_plot <- ggplot(state_shape) +
   geom_polygon(
-    mapping = aes(x = long, y = lat, group = group, fill = total_jail_pop),
+    mapping = aes(x = long, y = lat, group = group, fill = prop_jail_pop),
     color = "white",
     size = .1
   ) + 
@@ -130,4 +149,4 @@ us_plot <- ggplot(state_shape) +
   labs(x="", y="", title="Jail Population by State")
 
 #END
-  
+
