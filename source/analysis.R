@@ -95,10 +95,10 @@ time_plot <- ggplot(data = time_plot_data) +
 
 #-------------------------------------------------------------------------------
 #Map: 
-#What state had the highest amount of its residents in jails in 2018?
+#What states had the highest proportion of their residents in jails in 2018?
 
 #Use state codes to help merge
-state_codes <- read.csv("Data/statecodes.csv", stringsAsFactors = FALSE)
+state_codes <- read.csv("../Data/statecodes.csv", stringsAsFactors = FALSE)
 
 state_codes_fix <- state_codes %>%
   rename(state = Code)
@@ -129,8 +129,8 @@ us_plot <- ggplot(state_shape) +
     size = .1
   ) + 
   coord_map() +
-  scale_fill_continuous(low = "#132B43", high = "Red") +
-  labs(fill = "Jail Population %")  +
+  scale_fill_continuous(low = "Yellow", high = "Red") +
+  labs(fill = "Jail Pop %")  +
   theme_bw() +
   theme(
     axis.line = element_blank(),        
